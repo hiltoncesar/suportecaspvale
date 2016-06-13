@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="SuporteCaspValePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entidades.SuporteHistoricoChat</class>
+    <class>entidades.SuporteAcessoRemoto</class>
+    <class>entidades.SuporteAnexos</class>
+    <class>entidades.SuporteCategorias</class>
+    <class>entidades.SuporteHistoricoAcesso</class>
+    <class>entidades.SuporteUsuarios</class>
+    <class>entidades.SuporteAreas</class>
+    <class>entidades.SuporteEntidades</class>
+    <class>entidades.SuportePontoeletronico</class>
+    <class>entidades.SuporteResumo</class>
+    <class>entidades.SuportePeriodos</class>
+    <class>entidades.SuporteIntercorrencia</class>
+    <class>entidades.SuporteConfigPonto</class>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+    </properties>
+  </persistence-unit>
+</persistence>
