@@ -8,6 +8,7 @@ package Frames.Cadastros;
 
 import controle.SuportePeriodosJpaController;
 import entidades.SuportePeriodos;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -32,9 +33,22 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
         //this.emfAreas = new SuporteAreasJpaController(emf);
         initComponents();
         tabelaAreas();
-        setFrameIcon(new javax.swing.ImageIcon(this.getClass().getResource("/imagens/icone_2_24.png")));        
+        setFrameIcon(new javax.swing.ImageIcon(this.getClass().getResource("/imagens/icone_2_24.png")));     
+        jSano.setText(formato(new Date(),"yyyy"));
     }
 
+    public String formato(Date dt, String tipo) {
+        /*  "dd/MM/yyyy"
+         "HH:mm:ss"
+         "dd/MM/yyyy"
+         "HH:mm"
+         "yyyy-MM-dd"
+         "HH:mm:ss"  */
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        formato = new SimpleDateFormat(tipo);
+        return formato.format(dt);
+    }
+    
     public DefaultTableModel tabelaAreas() {
         //<editor-fold defaultstate="collapsed" desc="Manipulação da Tabela">
         /* Método controlador da tabela*/
@@ -78,12 +92,12 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
                         System.out.println("Atenção! Campos vazios.");
                     }
                     try {
-                        modelo.setValueAt(listaPeriodos.get(i).getDtInicio(), l, 1);
+                        modelo.setValueAt(formato(listaPeriodos.get(i).getDtInicio(),"dd/MM/yyyy"), l, 1);
                     } catch (NullPointerException erro) {
                         System.out.println("Atenção! Campos vazios.");
                     }
                     try {
-                        modelo.setValueAt(listaPeriodos.get(i).getDtFim(), l, 2);
+                        modelo.setValueAt(formato(listaPeriodos.get(i).getDtFim(),"dd/MM/yyyy"), l, 2);
                     } catch (NullPointerException erro) {
                         System.out.println("Atenção! Campos vazios.");
                     }
@@ -114,6 +128,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
+        dateChooserPanel1 = new datechooser.beans.DateChooserPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTperiodos = new javax.swing.JTable();
         jBnovo = new javax.swing.JButton();
@@ -129,7 +144,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jDCinicio = new datechooser.beans.DateChooserCombo();
         jCBmes = new javax.swing.JComboBox<>();
-        jSano = new javax.swing.JSpinner();
+        jSano = new javax.swing.JTextField();
 
         jToolBar1.setRollover(true);
 
@@ -215,6 +230,8 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Mês:");
 
+        jDCfim.setFormat(2);
+        jDCfim.setWeekStyle(datechooser.view.WeekDaysStyle.FULL);
         jDCfim.setEnabled(false);
         jDCfim.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
         jDCfim.addCommitListener(new datechooser.events.CommitListener() {
@@ -227,6 +244,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Início:");
 
+        jDCinicio.setWeekStyle(datechooser.view.WeekDaysStyle.FULL);
         jDCinicio.setEnabled(false);
         jDCinicio.setBehavior(datechooser.model.multiple.MultyModelBehavior.SELECT_SINGLE);
         jDCinicio.addCommitListener(new datechooser.events.CommitListener() {
@@ -235,7 +253,8 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
             }
         });
 
-        jCBmes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBmes.setMaximumRowCount(12);
+        jCBmes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO" }));
         jCBmes.setEnabled(false);
 
         jSano.setEnabled(false);
@@ -255,8 +274,8 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSano, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jSano, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCBmes, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -271,7 +290,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBnovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -279,8 +298,9 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBexcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBgravar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBgravar)
+                        .addGap(0, 3, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBatualizar, jBexcluir, jBgravar, jBnovo});
@@ -295,9 +315,9 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jSano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jCBmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCBmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -307,14 +327,13 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(jDCfim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBnovo)
                     .addComponent(jBatualizar)
                     .addComponent(jBgravar)
-                    .addComponent(jBexcluir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBexcluir)))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDCfim, jLabel5});
@@ -356,7 +375,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
         jDCinicio.setCurrent(null);
         jDCfim.setCurrent(null);
         jCBmes.setSelectedIndex(0);
-        jSano.setValue(new Date().getYear());
+        jSano.setText(formato(new Date(),"yyyy"));
     }
 
     public void campos(boolean estado) {
@@ -419,7 +438,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
                     periodos = new SuportePeriodos();
                     periodos.setDtInicio(jDCinicio.getCurrent().getTime());
                     periodos.setDtFim(jDCfim.getCurrent().getTime());
-                    periodos.setExercicio((Integer) jSano.getValue());
+                    periodos.setExercicio(Integer.parseInt(jSano.getText()));
                     periodos.setMesReferencia(jCBmes.getSelectedItem().toString());
                     emfPeriodos.create(periodos);
                     jBnovo.setEnabled(true);
@@ -430,7 +449,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
                     periodos = emfPeriodos.findSuportePeriodos(Integer.parseInt(jTFcodigo.getText()));
                     periodos.setDtInicio(jDCinicio.getCurrent().getTime());
                     periodos.setDtFim(jDCfim.getCurrent().getTime());
-                    periodos.setExercicio((Integer) jSano.getValue());
+                    periodos.setExercicio(Integer.parseInt(jSano.getText()));
                     periodos.setMesReferencia(jCBmes.getSelectedItem().toString());
                     try {
                         emfPeriodos.edit(periodos);
@@ -469,7 +488,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
     }
 
     public boolean validarCamposVazios() {
-        return jSano.getValue()!= null;
+        return !jSano.equals(null);
 
 //        if (jTFarea.getText() == null) {
 //            return false;
@@ -483,6 +502,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private datechooser.beans.DateChooserPanel dateChooserPanel1;
     private javax.swing.JButton jBatualizar;
     private javax.swing.JButton jBexcluir;
     private javax.swing.JButton jBgravar;
@@ -495,7 +515,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JSpinner jSano;
+    private javax.swing.JTextField jSano;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFcodigo;
     private javax.swing.JToolBar jToolBar1;

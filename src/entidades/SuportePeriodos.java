@@ -50,7 +50,7 @@ public class SuportePeriodos implements Serializable {
     private Date dtInicio;
     @Basic(optional = false)
     @Column(name = "dt_fim")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dtFim;
     @Column(name = "mes_referencia")
     private String mesReferencia;

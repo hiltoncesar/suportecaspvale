@@ -953,6 +953,7 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Período:");
 
+        jCBperiodos.setMaximumRowCount(12);
         jCBperiodos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCBperiodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

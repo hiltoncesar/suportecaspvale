@@ -239,7 +239,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(desk)))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBacessoRemoto, jBanexar, jButton1});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBacessoRemoto, jBanexar, jBponto, jButton1});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +260,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBacessoRemoto, jBanexar, jButton1});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBacessoRemoto, jBanexar, jBponto, jButton1});
 
         setSize(new java.awt.Dimension(816, 638));
         setLocationRelativeTo(null);

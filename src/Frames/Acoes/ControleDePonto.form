@@ -454,6 +454,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="jCBperiodos">
       <Properties>
+        <Property name="maximumRowCount" type="int" value="12"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
             <StringItem index="0" value="Item 1"/>
