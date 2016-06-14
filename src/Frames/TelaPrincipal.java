@@ -29,20 +29,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private SuporteUsuariosJpaController emfUsuario;
     private static util.Minimizar min;// = new util.Minimizar(this);
-    private int i_usu;
+    private int i_usu, i_area;
     private final util.Config config = new util.Config();
     private final String usuario;
     private final String usuario_nome;
 
-    public TelaPrincipal(int i_usu, String usuario) {
+    public TelaPrincipal(int i_usu, String usuario, int i_area) {
         this.emfUsuario = new SuporteUsuariosJpaController(new util.Persistencia().emf());
         this.i_usu = i_usu;
         this.usuario = usuario;
+        this.i_area = i_area;
         this.usuario_nome = emfUsuario.findSuporteUsuarios(i_usu).getUsuarioNome();
         tema();
         initComponents();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/icone_2.png")));        
-        min = new Minimizar(this,this.i_usu);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagens/icone_2.png")));
+        min = new Minimizar(this, this.i_usu);
         min.trayH();
         this.setTitle("Suporte - CASPVALE" + "      ||      Usuário: " + usuario);
         jLrodape.setText("CASPVALE - Sistemas Públicos" + "      ||      Usuário: " + usuario);
@@ -347,7 +348,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jBpontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBpontoActionPerformed
-        exibeForm(new ControleDePonto(i_usu,usuario,usuario_nome), "controledeponto");
+        exibeForm(new ControleDePonto(i_usu, usuario, usuario_nome, i_area), "controledeponto");
     }//GEN-LAST:event_jBpontoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -478,7 +479,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     desk.add(frame);
                     c = new util.Centralizar(frame);
                     frame.setVisible(true);
-                    break; 
+                    break;
             }//fim do switch
         }//fim do else 
         //</editor-fold>
@@ -514,11 +515,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincipal(1,"Hilton").setVisible(true);               
-               // min.trayH();
+                new TelaPrincipal(1, "Hilton", 7).setVisible(true);
+                // min.trayH();
             }
         });
     }
+
     public void tema() {
         try {
             boolean useDarkTexture = false;

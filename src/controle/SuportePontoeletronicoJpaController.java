@@ -271,7 +271,7 @@ public class SuportePontoeletronicoJpaController implements Serializable {
             Query q = em.createQuery("select p from SuportePontoeletronico p ORDER BY p.dtRegistro DESC");
 
             switch (tipo) {
-                case "geral":
+                case "geral.geral":
                     q = em.createQuery("select p from SuportePontoeletronico p ORDER BY p.dtRegistro DESC");
                     break;
                 case "geral.max-min":
@@ -280,7 +280,7 @@ public class SuportePontoeletronicoJpaController implements Serializable {
                     q.setFirstResult(firstResult);
                     break;
                 case "geral.referencia":
-                    q = em.createQuery("select p from SuportePontoeletronico p where p.iPeriodo = " + i_periodo + " ORDER BY p.dtRegistro DESC");
+                    q = em.createQuery("select p from SuportePontoeletronico p where p.iPeriodo.iPeriodo = " + i_periodo + " ORDER BY p.dtRegistro DESC");
                     break;
                 case "geral.periodo":
                     q = em.createQuery("select p from SuportePontoeletronico p where p.dtRegistro between " + dtInicio + " AND " + dtFim + " ORDER BY p.dtRegistro DESC");
@@ -288,7 +288,7 @@ public class SuportePontoeletronicoJpaController implements Serializable {
                 case "geral.situacao":
                     q = em.createQuery("select p from SuportePontoeletronico p where p.situacao like '%" + situacao + "%' ORDER BY p.dtRegistro DESC");
                     break;
-                case "usuario":
+                case "usuario.geral":
                     q = em.createQuery("select p from SuportePontoeletronico p where p.iUsuario.iUsuario = " + i_usuario + " ORDER BY p.dtRegistro DESC");
                     break;
                 case "usuario.max-min":
@@ -297,7 +297,7 @@ public class SuportePontoeletronicoJpaController implements Serializable {
                     q.setFirstResult(firstResult);
                     break;
                 case "usuario.referencia":
-                    q = em.createQuery("select p from SuportePontoeletronico p where p.iUsuario.iUsuario = " + i_usuario + " and p.iPeriodo = " + i_periodo + " ORDER BY p.dtRegistro DESC");
+                    q = em.createQuery("select p from SuportePontoeletronico p where p.iUsuario.iUsuario = " + i_usuario + " and p.iPeriodo.iPeriodo = " + i_periodo + " ORDER BY p.dtRegistro DESC");
                     break;
                 case "usuario.periodo":
                     q = em.createQuery("select p from SuportePontoeletronico p where p.iUsuario.iUsuario = '%" + i_usuario + "%' and p.dtRegistro between " + dtInicio + " AND " + dtFim + " ORDER BY p.dtRegistro DESC");

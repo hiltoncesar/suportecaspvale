@@ -24,7 +24,7 @@ public final class Login extends javax.swing.JFrame {
     private String senha;
     private String situacao;
     private entidades.SuporteUsuarios usuarioLogin;
-    public int nivel, i_usuario;
+    public int nivel, i_usuario, i_area;
     private final util.Config config = new util.Config();
 
     public Login() {
@@ -45,6 +45,7 @@ public final class Login extends javax.swing.JFrame {
                 //this.nivel = controleL().findLogin(controleL().findLoginEntities().get(i).getILogin()).getNivel();
                 this.senha = emfUsuario.findSuporteUsuarios(emfUsuario.findSuporteUsuariosEntities().get(i).getIUsuario()).getSenha();
                 this.situacao = emfUsuario.findSuporteUsuarios(emfUsuario.findSuporteUsuariosEntities().get(i).getIUsuario()).getSituacao();
+                this.i_area = emfUsuario.findSuporteUsuarios(emfUsuario.findSuporteUsuariosEntities().get(i).getIUsuario()).getIArea().getIArea();
                 jLerro.setText("Usuário localizado!");
                 return 1;
             }
@@ -79,7 +80,7 @@ public final class Login extends javax.swing.JFrame {
                 String senhaLocal = new util.Md5().md5(Arrays.toString(jPFsenha.getPassword()));
                 try {
                     if (validaUsuario(jTFusuarios.getText()) == 1 && validaSenha(senhaLocal) == 1) {
-                        TelaPrincipal tela = new TelaPrincipal(this.i_usuario, this.usuarioNome);
+                        TelaPrincipal tela = new TelaPrincipal(this.i_usuario, this.usuarioNome, this.i_area);
                         this.dispose();
                         tela.setVisible(true);
                         new util.Status().setStatus(i_usuario, "ONLINE");
@@ -108,7 +109,7 @@ public final class Login extends javax.swing.JFrame {
                 usuario.setAlteracao(new java.util.Date());
                 emfUsuario.create(usuario);
                 SuporteUsuarios usuNovo = emfUsuario.findSuporteUsuariosEntities().get(0);
-                TelaPrincipal tela = new TelaPrincipal(usuNovo.getIUsuario(), usuNovo.getUsuario());
+                TelaPrincipal tela = new TelaPrincipal(usuNovo.getIUsuario(), usuNovo.getUsuario(), usuNovo.getIArea().getIArea());
                 this.dispose();
                 tela.setVisible(true);
                 new util.Status().setStatus(usuNovo.getIUsuario(), "ONLINE");
@@ -153,7 +154,6 @@ public final class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Suporte CaspVale");
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(243, 249));
         setMinimumSize(new java.awt.Dimension(243, 249));
         setResizable(false);
 

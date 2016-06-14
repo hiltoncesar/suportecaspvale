@@ -40,19 +40,20 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
     private final SuportePeriodosJpaController emfPeriodo = new SuportePeriodosJpaController(new util.Persistencia().emf());
     private final SuporteConfigPontoJpaController emfConfigPonto = new SuporteConfigPontoJpaController(new util.Persistencia().emf());
     public Thread t;
-    private final int i_usuario;
+    private final int i_usuario, i_area;
     private final String usuario;
     private String usuario_nome;
     private int antecipaEntrada = 10, antecipaAlmoco = 10, antecipaRetorno = 10, antecipaSaida = 10, prorrogaEntrada = -5, prorrogaAlmoco = -5, prorrogaRetorno = -5, prorrogaSaida = -5;
     private int[] arrayUsuarios;
     private int[] arrayPeriodos;
 
-    public ControleDePonto(int i_usuario, String usuario, String usuario_nome) {
+    public ControleDePonto(int i_usuario, String usuario, String usuario_nome, int i_area) {
         initComponents();
         setFrameIcon(new javax.swing.ImageIcon(this.getClass().getResource("/imagens/icone_2_24.png")));
         this.i_usuario = i_usuario;
         this.usuario = usuario;
         this.usuario_nome = usuario_nome;
+        this.i_area = i_area;
         listarPeriodos();
         tabelaPonto();
         t = new Thread(new Relogio());
@@ -60,9 +61,12 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         iniciaSpinner();
         selecionaDataRegistro();
         selecionarRegistroTabela();
-        listarFuncionarios();        
+        listarFuncionarios();
+        if(this.i_area == 7){
+            jCBfuncionario.setEnabled(true);
+        }
     }
-    
+
     public void getConfigPonto() {
         antecipaEntrada = emfConfigPonto.findSuporteConfigPonto(1).getAntecipaEntrada();
         antecipaAlmoco = emfConfigPonto.findSuporteConfigPonto(1).getAntecipaAlmoco();
@@ -92,17 +96,26 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         String[] linha = new String[]{null, null, null, null, null, null, null, null};
         int linhas = modelo.getRowCount();
 
-        String tipo = "usuario";
-        if (jCBfuncionario.getSelectedIndex() == 0) {
-            tipo = "geral";
-        }
+        String nivel = "";
+        String consulta = "";
+        int user = 0;
+        int index_func = jCBfuncionario.getSelectedIndex();        
         
-        if(jCBperiodos.getSelectedIndex() != 0){
-            tipo = tipo + ".referencia";
+        if (index_func == 0) {
+            nivel = "geral";
+        } else {
+            nivel = "usuario";
+            user = arrayUsuarios[index_func];
+        }
+
+        if (jCBperiodos.getSelectedIndex() != 0) {
+            consulta = nivel+".referencia";
+        } else {
+            consulta = nivel+".geral";
         }
 
         SuportePontoeletronicoJpaController emf = new SuportePontoeletronicoJpaController(new util.Persistencia().emf());
-        List<SuportePontoeletronico> listaPonto = emf.findSuportePontoeletronicoEntitiesFiltros(tipo, 0, 0, null, null, null, i_usuario, arrayPeriodos[jCBperiodos.getSelectedIndex()]);
+        List<SuportePontoeletronico> listaPonto = emf.findSuportePontoeletronicoEntitiesFiltros(consulta, 0, 0, null, null, null, user, arrayPeriodos[jCBperiodos.getSelectedIndex()]);
 
         while (linhas > 0) {//limpa conteudo da tabela para atulização
             for (int i = linhas; i > 0; i--) {
@@ -300,7 +313,6 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
 //        System.out.println("Horas: " + horas);
 //        System.out.println("Diferenca em Dias: " + dias); //Vai imprimir 25.  
 //        System.out.println("DATA: " + new Date(diferenca));
-
         switch (tipo) {
             case "entrada":
                 retorno = restricao(antecipaEntrada, prorrogaEntrada, min);
@@ -431,7 +443,7 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
             Logger.getLogger(ControleDePonto.class.getName()).log(Level.SEVERE, null, ex);
         }
         //int i_ponto = Integer.parseInt(jTponto.getValueAt(jTponto.getSelectedRow(), 0).toString());
-        if (simNao.equals("atraso")) {           
+        if (simNao.equals("atraso")) {
 
             int ano1, mes1, dia1;
             Date horaInformada = null;
@@ -656,15 +668,15 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         jCBfuncionario.setModel(new DefaultComboBoxModel(lista));
         jCBfuncionario.setSelectedItem(usuario_nome.trim());
     }
-    
+
     public void listarPeriodos() {
-        List<SuportePeriodos> listaPeriodos = emfPeriodo.findSuportePeriodosEntities();
+        List<SuportePeriodos> listaPeriodos = emfPeriodo.findSuportePeriodosEntitiesOrdenado();
         String[] lista = new String[listaPeriodos.size() + 1];
         lista[0] = "TODOS";
         arrayPeriodos = new int[listaPeriodos.size() + 1];
         arrayPeriodos[0] = 0;
         for (int i = 0; i < lista.length - 1; i++) {
-            lista[i + 1] = listaPeriodos.get(i).getMesReferencia();
+            lista[i + 1] = listaPeriodos.get(i).getMesReferencia()+ " / "+listaPeriodos.get(i).getExercicio();
             arrayPeriodos[i + 1] = listaPeriodos.get(i).getIPeriodo();
         }
         jCBperiodos.setModel(new DefaultComboBoxModel(lista));

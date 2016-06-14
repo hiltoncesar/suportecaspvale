@@ -141,7 +141,7 @@ public class SuportePeriodosJpaController {
         }
     }
 
-    public List<SuportePeriodos> findSuportePeriodosEntities() {
+    public List<SuportePeriodos> findSuportePeriodosEntities9() {
         return findSuportePeriodosEntities(true, -1, -1);
     }
 
@@ -187,4 +187,16 @@ public class SuportePeriodosJpaController {
         }
     }
     
+     //Método Novo
+public List<SuportePeriodos> findSuportePeriodosEntitiesOrdenado() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(SuportePeriodos.class));
+            Query q = em.createQuery("select a FROM SuportePeriodos a ORDER BY a.iPeriodo DESC");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

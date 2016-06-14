@@ -66,7 +66,7 @@ public final class CadastrarPeriodos extends javax.swing.JInternalFrame {
 
         List<SuportePeriodos> listaPeriodos =null;
         try {
-            listaPeriodos = emfPeriodos.findSuportePeriodosEntities();
+            listaPeriodos = emfPeriodos.findSuportePeriodosEntitiesOrdenado();
         } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(null,
                     "Erro ao recuperar informações da tabela\n"
