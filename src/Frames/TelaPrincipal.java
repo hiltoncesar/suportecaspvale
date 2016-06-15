@@ -9,6 +9,7 @@ import Frames.Acoes.AcessarHost;
 import Frames.Acoes.Anexos;
 import Frames.Acoes.Chat;
 import Frames.Acoes.ControleDePonto;
+import Frames.Acoes.GerenciarRegistroDePonto;
 import Frames.Cadastros.*;
 import controle.SuporteUsuariosJpaController;
 import java.awt.Toolkit;
@@ -60,6 +61,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desk = new javax.swing.JDesktopPane();
         jButton1 = new javax.swing.JButton();
         jBponto = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMconfigPonto = new javax.swing.JMenu();
         jMIgerais = new javax.swing.JMenuItem();
@@ -73,6 +78,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMIcategorias = new javax.swing.JMenuItem();
         jMIperiodos = new javax.swing.JMenuItem();
         jMIusuarios = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMIacessoRemoto = new javax.swing.JMenuItem();
+        jMIanexar = new javax.swing.JMenuItem();
+        jMIchat = new javax.swing.JMenuItem();
+        jMIcontroleDePonto = new javax.swing.JMenuItem();
+        jMIgerenciarRegistroDePonto = new javax.swing.JMenuItem();
 
         setTitle("Suporte - CASPVALE");
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -112,7 +123,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         deskLayout.setVerticalGroup(
             deskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 610, Short.MAX_VALUE)
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/chat2_64.png"))); // NOI18N
@@ -131,8 +142,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Ponto Eletrônico");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Chat");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Anexar");
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Acesso Remoto");
+
         jMconfigPonto.setText("Configurações");
 
+        jMIgerais.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMIgerais.setText("Gerais");
         jMIgerais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +165,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMconfigPonto.add(jMIgerais);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Configurar Ponto Eletrônico");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +174,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMconfigPonto.add(jMenuItem1);
 
+        jMItema.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMItema.setText("Tema");
         jMItema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +183,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMconfigPonto.add(jMItema);
 
+        jMIsair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         jMIsair.setText("Sair");
         jMIsair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,6 +246,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu1.setText("Ações");
+
+        jMIacessoRemoto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMIacessoRemoto.setText("Acesso Remoto");
+        jMenu1.add(jMIacessoRemoto);
+
+        jMIanexar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMIanexar.setText("Anexar Documentos");
+        jMenu1.add(jMIanexar);
+
+        jMIchat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMIchat.setText("Chat");
+        jMenu1.add(jMIchat);
+
+        jMIcontroleDePonto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        jMIcontroleDePonto.setText("Controle de Ponto");
+        jMenu1.add(jMIcontroleDePonto);
+
+        jMIgerenciarRegistroDePonto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMIgerenciarRegistroDePonto.setText("Gerenciar Registro de Ponto");
+        jMIgerenciarRegistroDePonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIgerenciarRegistroDePontoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMIgerenciarRegistroDePonto);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,20 +283,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBacessoRemoto)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBacessoRemoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBanexar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jBponto))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBponto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLrodape, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
-                    .addComponent(desk)))
+                    .addComponent(desk)
+                    .addComponent(jLrodape, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBacessoRemoto, jBanexar, jBponto, jButton1});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBacessoRemoto, jBanexar, jBponto, jButton1, jLabel1, jLabel2, jLabel3, jLabel4});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,19 +311,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBacessoRemoto)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBanexar)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBponto)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBacessoRemoto, jBanexar, jBponto, jButton1});
 
-        setSize(new java.awt.Dimension(816, 638));
+        setSize(new java.awt.Dimension(868, 698));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -358,6 +426,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMIperiodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIperiodosActionPerformed
         exibeForm(new CadastrarPeriodos(), "cadastraperiodo");
     }//GEN-LAST:event_jMIperiodosActionPerformed
+
+    private void jMIgerenciarRegistroDePontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIgerenciarRegistroDePontoActionPerformed
+        exibeForm(new GerenciarRegistroDePonto(i_usu, usuario, usuario_nome, i_area), "gerenciarregistrodeponto");
+    }//GEN-LAST:event_jMIgerenciarRegistroDePontoActionPerformed
 
     public void exibeForm(javax.swing.JInternalFrame frame, String tipo) {
         //<editor-fold defaultstate="collapsed" desc="Controle dos Frames">
@@ -480,6 +552,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     c = new util.Centralizar(frame);
                     frame.setVisible(true);
                     break;
+                case "gerenciarregistrodeponto":
+                    for (int i = 0; i < iframe.length; i++) {
+                        if (iframe[i].getName().equals("gerenciarregistrodeponto")) {
+                            i = iframe.length + 1;
+                            return;
+                        }
+                    }//fim do for  
+                    desk.add(frame);
+                    c = new util.Centralizar(frame);
+                    frame.setVisible(true);
+                    break;
             }//fim do switch
         }//fim do else 
         //</editor-fold>
@@ -549,17 +632,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBanexar;
     private javax.swing.JButton jBponto;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLrodape;
+    private javax.swing.JMenuItem jMIacessoRemoto;
+    private javax.swing.JMenuItem jMIanexar;
     private javax.swing.JMenuItem jMIareas;
     private javax.swing.JMenuItem jMIcadastrarAcessoRemoto;
     private javax.swing.JMenuItem jMIcategorias;
+    private javax.swing.JMenuItem jMIchat;
+    private javax.swing.JMenuItem jMIcontroleDePonto;
     private javax.swing.JMenuItem jMIentidades;
     private javax.swing.JMenuItem jMIgerais;
+    private javax.swing.JMenuItem jMIgerenciarRegistroDePonto;
     private javax.swing.JMenuItem jMIperiodos;
     private javax.swing.JMenuItem jMIsair;
     private javax.swing.JMenuItem jMItema;
     private javax.swing.JMenuItem jMIusuarios;
     private javax.swing.JMenu jMconfigPonto;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
