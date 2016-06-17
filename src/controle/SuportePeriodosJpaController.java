@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entidades.SuportePontoeletronico;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -186,9 +187,9 @@ public class SuportePeriodosJpaController {
             em.close();
         }
     }
-    
-     //Método Novo
-public List<SuportePeriodos> findSuportePeriodosEntitiesOrdenado() {
+
+    //Método Novo
+    public List<SuportePeriodos> findSuportePeriodosEntitiesOrdenado() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -199,4 +200,15 @@ public List<SuportePeriodos> findSuportePeriodosEntitiesOrdenado() {
             em.close();
         }
     }
+
+    public List<SuportePeriodos> findSuportePeriodosBuscaPorData(String dtRegistro) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("select a FROM SuportePeriodos a WHERE '"+dtRegistro+"' BETWEEN a.dtInicio AND a.dtFim");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }

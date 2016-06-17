@@ -418,11 +418,15 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         dtEntrada.set(ano, mes, dia);
         dtRegistro.setTime(horaEntrada);
         dtRegistro.set(ano, mes, dia, 0, 0, 0);
+        
+        List<SuportePeriodos> listPeriodo = emfPeriodo.findSuportePeriodosBuscaPorData(formato(dtRegistro.getTime(), "yyyy-MM-dd"));
+        SuportePeriodos periodo = listPeriodo.get(0);
 
         // validaDataServidor("entrada");
         SuportePontoeletronico p = new SuportePontoeletronico();
         p.setIUsuario(emfUsuario.findSuporteUsuarios(this.i_usuario));
         p.setDtRegistro(dtRegistro.getTime());
+        p.setIPeriodo(periodo);
         p.setDtEntrada(dtEntrada.getTime());
         p.setAlteracao(this.usuario);
         String simNao = validaDataServidor("entrada");
