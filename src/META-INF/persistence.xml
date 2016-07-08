@@ -16,7 +16,5 @@
     <class>entidades.SuporteIntercorrencia</class>
     <class>entidades.SuporteConfigPonto</class>
     <validation-mode>NONE</validation-mode>
-    <properties>
-    </properties>
   </persistence-unit>
 </persistence>
