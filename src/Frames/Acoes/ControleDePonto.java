@@ -62,7 +62,7 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         selecionaDataRegistro();
         selecionarRegistroTabela();
         listarFuncionarios();
-        if(this.i_area == 7){
+        if (this.i_area == 7) {
             jCBfuncionario.setEnabled(true);
         }
     }
@@ -99,8 +99,8 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         String nivel = "";
         String consulta = "";
         int user = 0;
-        int index_func = jCBfuncionario.getSelectedIndex();        
-        
+        int index_func = jCBfuncionario.getSelectedIndex();
+
         if (index_func == 0) {
             nivel = "geral";
         } else {
@@ -109,9 +109,9 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         }
 
         if (jCBperiodos.getSelectedIndex() != 0) {
-            consulta = nivel+".referencia";
+            consulta = nivel + ".referencia";
         } else {
-            consulta = nivel+".geral";
+            consulta = nivel + ".geral";
         }
 
         SuportePontoeletronicoJpaController emf = new SuportePontoeletronicoJpaController(new util.Persistencia().emf());
@@ -418,15 +418,19 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         dtEntrada.set(ano, mes, dia);
         dtRegistro.setTime(horaEntrada);
         dtRegistro.set(ano, mes, dia, 0, 0, 0);
-        
+
         List<SuportePeriodos> listPeriodo = emfPeriodo.findSuportePeriodosBuscaPorData(formato(dtRegistro.getTime(), "yyyy-MM-dd"));
-        SuportePeriodos periodo = listPeriodo.get(0);
 
         // validaDataServidor("entrada");
         SuportePontoeletronico p = new SuportePontoeletronico();
         p.setIUsuario(emfUsuario.findSuporteUsuarios(this.i_usuario));
         p.setDtRegistro(dtRegistro.getTime());
-        p.setIPeriodo(periodo);
+        
+        if (!listPeriodo.isEmpty()) {//só inclui período quando existir uma competência cadastrada
+            SuportePeriodos periodo = listPeriodo.get(0);
+            p.setIPeriodo(periodo);
+        }
+        
         p.setDtEntrada(dtEntrada.getTime());
         p.setAlteracao(this.usuario);
         String simNao = validaDataServidor("entrada");
@@ -680,7 +684,7 @@ public final class ControleDePonto extends javax.swing.JInternalFrame {
         arrayPeriodos = new int[listaPeriodos.size() + 1];
         arrayPeriodos[0] = 0;
         for (int i = 0; i < lista.length - 1; i++) {
-            lista[i + 1] = listaPeriodos.get(i).getMesReferencia()+ " / "+listaPeriodos.get(i).getExercicio();
+            lista[i + 1] = listaPeriodos.get(i).getMesReferencia() + " / " + listaPeriodos.get(i).getExercicio();
             arrayPeriodos[i + 1] = listaPeriodos.get(i).getIPeriodo();
         }
         jCBperiodos.setModel(new DefaultComboBoxModel(lista));
